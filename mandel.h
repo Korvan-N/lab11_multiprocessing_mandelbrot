@@ -1,4 +1,8 @@
-// local routines
+/**
+ * author: korvan nameni
+ * file: mandel.h
+ * class: CPE-2600-111
+ */
 #ifndef MANDEL_H
 #define MANDEL_H
 #include "jpegrw.h"

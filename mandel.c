@@ -1,14 +1,13 @@
-/// author: korvan nameni
-//  mandel.c
-//  Based on example code found here:
-//  https://users.cs.fiu.edu/~cpoellab/teaching/cop4610_fall22/project3.html
-//
-//  Converted to use jpg instead of BMP and other minor changes
-//  
-///
+/**
+ * author: korvan nameni
+ * file: mandel.c
+ * class: CPE-2600-111
+ *  Based on example code found here:
+ *  https://users.cs.fiu.edu/~cpoellab/teaching/cop4610_fall22/project3.html
+ *
+ *  Converted to use jpg instead of BMP and other minor changes
+ */
 #include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
 #include "mandel.h"
 
 
@@ -18,7 +17,6 @@ int run( double xcenter, double ycenter, double scale, int width, int height, in
 	double xscale = scale;
 	// Calculate y scale based on x scale (settable) and image sizes in X and Y (settable)
 	double yscale = scale / width * height;
-	// int    max = 1000;
 
 	// Display the configuration of the image.
 	printf("mandel: x=%lf y=%lf xscale=%lf yscale=%1f max=%d outfile=%s\n",xcenter,ycenter,xscale,yscale,max,outfile);
