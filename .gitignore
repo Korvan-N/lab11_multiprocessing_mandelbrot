@@ -3,3 +3,6 @@
 mandel
 *.jpg
 *.mpg
+mandelmovie
+images/
+.vscode/
