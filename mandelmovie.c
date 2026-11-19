@@ -15,7 +15,7 @@
 #define ARGS 6
 #define MAX_CORES 12
 #define ZOOM .75
-#define FRAMES 50
+#define FRAMES 50.0
 int main(int argc, char* argv[]){
     pid_t first = getpid();
     if(argc == 2){
@@ -35,18 +35,20 @@ int main(int argc, char* argv[]){
                 pid |= (fork() == 0) << i;
             }
             if(pid < processors){ //only run the needed forks
-                int strt = pid*(FRAMES/processors);
-                int end = pid == processors-1? FRAMES : strt+FRAMES/processors;
-                for(int i = strt; i < end; i++){
+                // int end = pid == processors-1? FRAMES : strt+FRAMES/processors;
+                int i = pid;
+                while(i < FRAMES){
                     s = pow(ZOOM, i*2);
                     char name[100];
                     sprintf(name, "images/image%d.jpeg", i);
                     run(-1.7706660190054566, -0.016332605287125934, s, 1000, 1000, 1000, name);
+
+                    i+=processors;
                 }
             }
             while(wait(NULL)>0){} //wait for everything to finish
             if(getpid() == first){//create mp4 from the parent
-                system("ffmpeg -y -framerate 15 -i images/image%d.jpeg -c:v libx264 -pix_fmt yuv420p output.mp4");
+                system("ffmpeg -y -framerate 10 -i images/image%d.jpeg -c:v libx264 -pix_fmt yuv420p output.mp4");
             }
         }
     }
