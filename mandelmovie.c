@@ -13,7 +13,7 @@
 #include <sys/wait.h>
 #include <math.h>
 #define ARGS 6
-#define MAX_CORES 12
+#define MAX_CORES 13
 #define ZOOM .75
 #define FRAMES 50.0
 int main(int argc, char* argv[]){
@@ -24,7 +24,7 @@ int main(int argc, char* argv[]){
         }
         else{
             int processors = atoi(argv[1]);
-            if(processors > MAX_CORES || processors < 1){ //assure a valid processor # is entered
+            if(processors < 1){ //assure a valid processor # is entered
                 printf("choose a processor value between 1 and %d.\n", MAX_CORES);
                 exit(1);
             }
@@ -48,12 +48,12 @@ int main(int argc, char* argv[]){
             }
             while(wait(NULL)>0){} //wait for everything to finish
             if(getpid() == first){//create mp4 from the parent
-                system("ffmpeg -y -framerate 10 -i images/image%d.jpeg -c:v libx264 -pix_fmt yuv420p output.mp4");
+                system("ffmpeg -y -i images/image%d.jpeg mandel.mpg");
             }
         }
     }
     else{
-        printf("enter 2 arguments.\n");
+        printf("enter 1 argument.\n");
         exit(1);
     }
 }

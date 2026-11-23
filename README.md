@@ -7,3 +7,7 @@ To run (terminal):
 2. `./mandelmovie <# cores>`
 
 The image output will be located in the folder `images`.
+
+![alt text](graph.png)
+As shown by the graph, there is an inverse logarithmic relationship between the number of processors used and the time it takes to complete 50 mandelbrot calculations.
+![alt text](table.png)
