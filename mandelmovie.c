@@ -13,7 +13,6 @@
 #include <sys/wait.h>
 #include <math.h>
 #define ARGS 6
-#define MAX_CORES 13
 #define ZOOM .75
 #define FRAMES 50.0
 void create_movie(int processors, int threads);
@@ -39,7 +38,11 @@ int main(int argc, char* argv[]){
 void create_movie(int processors, int threads){
     pid_t first = getpid();
     if(processors < 1){ //assure a valid processor # is entered
-        printf("choose a processor value between 1 and %d.\n", MAX_CORES);
+        printf("choose a processor above 1.\n");
+        exit(1);
+    }
+    if(threads < 1 || threads > 20){ //assure a valid processor # is entered
+        printf("choose a processor value between 1 and 20.\n");
         exit(1);
     }
     double s = 4;
