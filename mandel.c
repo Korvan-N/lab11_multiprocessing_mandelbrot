@@ -12,7 +12,7 @@
 
 
 
-int run( double xcenter, double ycenter, double scale, int width, int height, int max, char* outfile)
+int run( double xcenter, double ycenter, double scale, int width, int height, int max, char* outfile, int threads)
 {
 	double xscale = scale;
 	// Calculate y scale based on x scale (settable) and image sizes in X and Y (settable)
@@ -28,7 +28,7 @@ int run( double xcenter, double ycenter, double scale, int width, int height, in
 	setImageCOLOR(img,0);
 
 	// Compute the Mandelbrot image
-	compute_image(img,xcenter-xscale/2,xcenter+xscale/2,ycenter-yscale/2,ycenter+yscale/2,max);
+	compute_image(img,xcenter-xscale/2,xcenter+xscale/2,ycenter-yscale/2,ycenter+yscale/2,max,threads);
 
 	// Save the image in the stated file.
 	storeJpegImageFile(img,outfile);
@@ -73,7 +73,7 @@ Compute an entire Mandelbrot image, writing each point to the given bitmap.
 Scale the image to the range (xmin-xmax,ymin-ymax), limiting iterations to "max"
 */
 
-void compute_image(imgRawImage* img, double xmin, double xmax, double ymin, double ymax, int max )
+void compute_image(imgRawImage* img, double xmin, double xmax, double ymin, double ymax, int max, int threads)
 {
 	int i,j;
 
