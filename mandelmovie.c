@@ -12,13 +12,14 @@
 #include <sys/stat.h>
 #include <sys/wait.h>
 #include <math.h>
+#include <pthread.h>
 #define ARGS 6
 #define ZOOM .75
 #define FRAMES 50.0
 void create_movie(int processors, int threads);
 int main(int argc, char* argv[]){
     char c;
-    int processors = 20;
+    int processors = 1;
     int threads = 1;
     while((c = getopt(argc, argv, "p:t:h")) != -1){
         switch(c){
@@ -27,8 +28,9 @@ int main(int argc, char* argv[]){
                 break;
             case 't':
                 threads = atoi(optarg);
+                break;
             case 'h':
-                printf("to run:\n ./mandelmovie <# cores>\n");
+                printf("to run:\n ./mandelmovie -p <# cores> -t <# threads>\n");
                 exit(0);
         }
     }
@@ -52,7 +54,6 @@ void create_movie(int processors, int threads){
         pid |= (fork() == 0) << i;
     }
     if(pid < processors){ //only run the needed forks
-        // int end = pid == processors-1? FRAMES : strt+FRAMES/processors;
         int i = pid;
         while(i < FRAMES){
             s = pow(ZOOM, i*2);
@@ -65,6 +66,6 @@ void create_movie(int processors, int threads){
     }
     while(wait(NULL)>0){} //wait for everything to finish
     if(getpid() == first){//create mp4 from the parent
-        system("ffmpeg -y -i images/image%d.jpeg mandel.mpg");
+        system("ffmpeg -y -i images/image%d.jpeg mandel.mp4");
     }
 }
